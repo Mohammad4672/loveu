@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For Ruba ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    font-family:'Cairo', sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: radial-gradient(circle at top,#0b0b1a,#16213e,#000);
+    color:white;
+}
+
+/* 🎬 Intro screen */
+.intro{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:20;
+    transition:opacity 2s ease;
+}
+
+.intro h1{
+    font-size:40px;
+    color:#ff4d6d;
+    text-shadow:0 0 20px #ff4d6d;
+}
+
+/* 💖 name top */
+.top-name{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:40px;
+    color:#ffd6e0;
+    text-shadow:0 0 15px #ff4d6d;
+    opacity:0;
+    transition:opacity 2s;
+}
+
+/* 💖 box */
+.box{
+    text-align:center;
+    padding:25px;
+    width:90%;
+    max-width:700px;
+    backdrop-filter:blur(12px);
+    background:rgba(255,255,255,0.08);
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,0.2);
+    opacity:0;
+    transition:opacity 2s;
+}
+
+/* ✍️ text */
+.typing{
+    font-size:28px;
+    line-height:1.8;
+    min-height:180px;
+    white-space:pre-line;
+}
+
+/* 🎬 THE END */
+.end{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:22px;
+    opacity:0;
+    transition:opacity 3s;
+    color:#ff4d6d;
+}
+</style>
+</head>
+
+<body>
+
+<div class="intro" id="intro">
+    <h1>For Ruba ❤️</h1>
+</div>
+
+<div class="top-name" id="name">Ruba ❤️</div>
+
+<div class="box" id="box">
+    <div class="typing" id="text"></div>
+</div>
+
+<div class="end" id="end">The End 🤍</div>
+
+<audio id="music" loop>
+    <source src="song.mp3.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const message = `25/04/2025…
+الساعة 3:21 كانت لحظة مختلفة…
+وكأن الحياة قررت فجأة
+تكتب بداية جديدة بحياتي 🤍
+لما عرّفتني عليكي يا رُبى…
+ما عاد في شي مثل قبل،
+صار في شعور ما بينوصف ✨
+صرت أضعف قدامك،
+وأقوى بحبك بنفس الوقت…
+إنتِ مش بس مرور…
+إنتِ الحكاية اللي ما بدي نهايتها تخلص 💖 🤍`;
+
+let i=0;
+const text=document.getElementById("text");
+const music=document.getElementById("music");
+
+/* 🎬 intro */
+setTimeout(()=>{
+    document.getElementById("intro").style.opacity="0";
+    setTimeout(()=>{
+        document.getElementById("intro").style.display="none";
+
+        document.getElementById("box").style.opacity="1";
+        document.getElementById("name").style.opacity="1";
+
+        startFilm();
+    },2000);
+},2500);
+
+/* 🎵 music start soft */
+function startMusic(){
+    music.volume=0;
+    music.play();
+
+    let v=0;
+    let fade=setInterval(()=>{
+        if(v<0.6){
+            v+=0.03;
+            music.volume=v;
+        } else clearInterval(fade);
+    },150);
+}
+
+/* ✍️ typing */
+function typeWriter(){
+
+    if(i===Math.floor(message.length*0.4)){
+        startMusic(); // 🎬 music enters mid
+    }
+
+    if(i<message.length){
+        text.innerHTML+=message.charAt(i);
+        i++;
+        setTimeout(typeWriter,50);
+    } else {
+        setTimeout(endFilm,2000);
+    }
+}
+
+/* 🚀 start */
+function startFilm(){
+    typeWriter();
+}
+
+/* 🎬 end scene */
+function endFilm(){
+    music.volume=0;
+
+    document.getElementById("end").style.opacity="1";
+}
+
+</script>
+
+</body>
+</html>
