@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For Ruba ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    font-family:'Cairo', sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: radial-gradient(circle at top,#1b1b2f,#16213e,#0f3460,#000);
+    color:white;
+}
+
+/* 💖 box */
+.box{
+    text-align:center;
+    padding:25px;
+    width:90%;
+    max-width:700px;
+    backdrop-filter:blur(12px);
+    background:rgba(255,255,255,0.08);
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,0.2);
+    z-index:2;
+}
+
+/* ✍️ typing */
+.typing{
+    font-size:28px;
+    line-height:1.8;
+    min-height:180px;
+    white-space:pre-line;
+}
+
+/* 🌹 اسم Ruba */
+#rubaBtn{
+    position:fixed;
+    top:-120px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:40px;
+    color:#ffd6e0;
+    font-weight:bold;
+    text-shadow:0 0 15px #ff4d6d;
+    cursor:pointer;
+    transition:all 1.5s ease;
+    z-index:3;
+}
+
+#rubaBtn.show{
+    top:20px;
+}
+
+/* hint */
+.hint{
+    position:fixed;
+    bottom:20px;
+    font-size:14px;
+    opacity:0.6;
+    z-index:3;
+}
+
+/* ❤️ القلوب */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    color:#ff4d6d;
+    font-size:20px;
+    pointer-events:none;
+    animation:floatUp linear forwards;
+    z-index:1;
+}
+
+@keyframes floatUp{
+    0%{
+        transform:translateY(0) scale(0.5);
+        opacity:0;
+    }
+
+    10%{
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(-110vh) scale(1.3);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <div class="typing" id="text"></div>
+</div>
+
+<div id="rubaBtn">Ruba ❤️</div>
+
+<div class="hint">انتظر نهاية الرسالة 👀</div>
+
+<audio id="music" loop>
+    <source src="song.mp3.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const message = `25/04/2025…
+الساعة 3:21 كانت لحظة مختلفة…
+وكأن الحياة قررت فجأة
+تكتب بداية جديدة بحياتي 🤍
+لما عرّفتني عليكي يا رُبى…
+ما عاد في شي مثل قبل،
+صار في شعور ما بينوصف ✨
+صارت الحياة حلوة كتيرر …
+هلق يا قلبي رح يبين اسمك فوق اكبسي عليه💖 🤍`;
+
+let i=0;
+const text=document.getElementById("text");
+const rubaBtn=document.getElementById("rubaBtn");
+const music=document.getElementById("music");
+
+/* ✍️ typing */
+function typeWriter(){
+    if(i < message.length){
+        text.innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter,55);
+    } else {
+
+        setTimeout(()=>{
+            rubaBtn.classList.add("show");
+        },800);
+    }
+}
+
+typeWriter();
+
+/* 🎵 تشغيل الموسيقى */
+rubaBtn.addEventListener("click", async ()=>{
+
+    music.volume=0;
+
+    try{
+        await music.play();
+
+        let v=0;
+
+        let fade=setInterval(()=>{
+            if(v<0.6){
+                v+=0.03;
+                music.volume=v;
+            } else {
+                clearInterval(fade);
+            }
+        },150);
+
+        rubaBtn.innerHTML="💖 بحبك Ruba";
+
+    }catch(e){
+        alert("اضغط مرة ثانية إذا ما اشتغل الصوت 👆");
+    }
+
+});
+
+/* ❤️ القلوب */
+function createHeart(){
+
+    const heart = document.createElement("div");
+
+    heart.classList.add("heart");
+
+    heart.innerHTML = "❤";
+
+    heart.style.left = Math.random()*100 + "vw";
+
+    heart.style.fontSize = (15 + Math.random()*20) + "px";
+
+    heart.style.animationDuration = (4 + Math.random()*4) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },8000);
+}
+
+setInterval(createHeart,350);
+
+</script>
+
+</body>
+</html>
